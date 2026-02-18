@@ -3,3 +3,9 @@
 
 export const SITE_TITLE = 'Yupay';
 export const SITE_DESCRIPTION = 'Educación financiera para Bolivia. Aprende a ahorrar, invertir y planificar tu futuro con contenido en español adaptado a la realidad boliviana.';
+
+/** Prefija cualquier ruta interna con la base del sitio. Uso: href={url('/blog')} */
+export function url(path: string): string {
+	const base = import.meta.env.BASE_URL; // '/' en dev, '/yupay/' en producción
+	return base + path.replace(/^\//, '');
+}

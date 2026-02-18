@@ -1,18 +1,21 @@
 ---
+import { Image } from 'astro:assets';
+import Logo from '../assets/logo.png';
+import { url } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 ---
 
 <header>
 	<nav>
-		<a href="/" class="logo-link">
-			<img src="/logo.png" alt="Yupay" width="120" height="40" />
+		<a href={url('/')} class="logo-link">
+			<Image src={Logo} alt="Yupay" height={36} />
 		</a>
 		<div class="nav-links">
 			<HeaderLink href="/">Inicio</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">Nosotros</HeaderLink>
 		</div>
-		<a href="/blog" class="cta-btn">Leer artículos</a>
+		<a href={url('/blog')} class="cta-btn">Leer artículos</a>
 	</nav>
 </header>
 

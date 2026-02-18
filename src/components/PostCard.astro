@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import { url } from '../consts';
 import FormattedDate from './FormattedDate.astro';
 
 interface Props {
@@ -11,7 +12,7 @@ const { post } = Astro.props;
 ---
 
 <article class="post-card">
-	<a href={`/blog/${post.id}/`} class="card-link">
+	<a href={url(`/blog/${post.id}/`)} class="card-link">
 		{post.data.heroImage && (
 			<div class="card-image">
 				<Image width={720} height={360} src={post.data.heroImage} alt={post.data.title} />

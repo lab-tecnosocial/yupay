@@ -4,7 +4,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import PostCard from '../components/PostCard.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { SITE_DESCRIPTION, SITE_TITLE, url } from '../consts';
 
 const posts = (await getCollection('blog'))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -305,8 +305,8 @@ const posts = (await getCollection('blog'))
 					práctico y adaptado a la realidad boliviana.
 				</p>
 				<div class="hero-actions">
-					<a href="/blog" class="btn-primary">Explorar artículos</a>
-					<a href="/about" class="btn-secondary">Conoce Yupay</a>
+					<a href={url('/blog')} class="btn-primary">Explorar artículos</a>
+					<a href={url('/about')} class="btn-secondary">Conoce Yupay</a>
 				</div>
 			</div>
 		</section>
@@ -346,7 +346,7 @@ const posts = (await getCollection('blog'))
 				{posts.map((post) => <PostCard post={post} />)}
 			</div>
 			<div class="all-posts-link">
-				<a href="/blog">Ver todos los artículos →</a>
+				<a href={url('/blog')}>Ver todos los artículos →</a>
 			</div>
 		</section>
 

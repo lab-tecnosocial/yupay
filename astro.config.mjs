@@ -11,6 +11,7 @@ export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
 	},
-	site: 'https://yupay.bo',
+	site: 'https://lab-tecnosocial.github.io',
+	base: '/yupay',
 	integrations: [mdx(), sitemap()],
 });

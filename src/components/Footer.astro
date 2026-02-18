@@ -1,4 +1,8 @@
 ---
+import { Image } from 'astro:assets';
+import Logo from '../assets/logo.png';
+import { url } from '../consts';
+
 const year = new Date().getFullYear();
 ---
 
@@ -6,7 +10,7 @@ const year = new Date().getFullYear();
 	<div class="footer-inner">
 		<div class="footer-top">
 			<div class="footer-brand">
-				<img src="/logo.png" alt="Yupay" width="100" height="34" />
+				<Image src={Logo} alt="Yupay" height={32} class="logo-img" />
 				<p class="tagline">Educación financiera para Bolivia</p>
 				<p class="quechua-note">
 					<em>Yupay</em> significa "contar" en quechua.
@@ -15,21 +19,15 @@ const year = new Date().getFullYear();
 			<div class="footer-links">
 				<div class="link-col">
 					<h4>Contenido</h4>
-					<a href="/blog">Blog</a>
-					<a href="/about">Nosotros</a>
-					<a href="/rss.xml">RSS</a>
+					<a href={url('/blog')}>Blog</a>
+					<a href={url('/about')}>Nosotros</a>
+					<a href={url('/rss.xml')}>RSS</a>
 				</div>
 				<div class="link-col">
 					<h4>Próximamente</h4>
-					<span class="coming-item">
-						App Yupay <span class="badge">En desarrollo</span>
-					</span>
-					<span class="coming-item">
-						Calculadoras <span class="badge">En desarrollo</span>
-					</span>
-					<span class="coming-item">
-						Herramientas <span class="badge">En desarrollo</span>
-					</span>
+					<span class="coming-item">App Yupay <span class="badge">En desarrollo</span></span>
+					<span class="coming-item">Calculadoras <span class="badge">En desarrollo</span></span>
+					<span class="coming-item">Herramientas <span class="badge">En desarrollo</span></span>
 				</div>
 			</div>
 		</div>
@@ -59,7 +57,7 @@ const year = new Date().getFullYear();
 	.footer-brand {
 		max-width: 260px;
 	}
-	.footer-brand img {
+	.footer-brand :global(.logo-img) {
 		border-radius: 0;
 		filter: brightness(0) invert(1);
 		height: 32px;
