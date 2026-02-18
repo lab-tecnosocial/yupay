@@ -15,11 +15,39 @@ import { url } from '../consts';
 			description="Conoce Yupay, la plataforma boliviana de educación financiera. Nuestra misión es hacer las finanzas personales accesibles para todos."
 		/>
 		<style>
+			/* ---- Shared ---- */
+			.section-label {
+				display: block;
+				font-size: 0.75em;
+				font-weight: 700;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--yupay-amber);
+				margin-bottom: 0.6em;
+			}
+			.section-header {
+				text-align: center;
+				margin-bottom: 3em;
+			}
+			.section-header h2 {
+				font-size: 1.9em;
+				color: var(--yupay-black);
+				margin: 0 0 0.5em;
+			}
+			.section-header p {
+				color: var(--yupay-gray);
+				font-size: 1em;
+				margin: 0;
+				max-width: 480px;
+				margin-inline: auto;
+			}
+
 			/* ---- Hero ---- */
 			.about-hero {
 				background: var(--yupay-cream);
-				padding: 4em 1.5em 3em;
+				padding: 4.5em 1.5em 3.5em;
 				text-align: center;
+				border-bottom: 3px solid var(--yupay-yellow);
 			}
 			.about-hero h1 {
 				font-size: clamp(1.8em, 4vw, 2.8em);
@@ -50,7 +78,7 @@ import { url } from '../consts';
 			/* ---- Name callout ---- */
 			.name-callout {
 				background: var(--yupay-yellow);
-				padding: 2.5em 1.5em;
+				padding: 3em 1.5em;
 				text-align: center;
 			}
 			.name-callout p {
@@ -58,7 +86,7 @@ import { url } from '../consts';
 				margin: 0 auto;
 				font-size: 1.15em;
 				color: var(--yupay-black);
-				line-height: 1.6;
+				line-height: 1.65;
 			}
 			.name-callout strong {
 				font-size: 1.1em;
@@ -67,12 +95,12 @@ import { url } from '../consts';
 			/* ---- Mission / Vision ---- */
 			.mission-vision {
 				background: white;
-				padding: 4em 1.5em;
+				padding: 5.5em 1.5em 4.5em;
 			}
 			.mv-grid {
 				display: grid;
 				grid-template-columns: 1fr 1fr;
-				gap: 2em;
+				gap: 1.5em;
 				max-width: 900px;
 				margin: 0 auto;
 			}
@@ -80,14 +108,21 @@ import { url } from '../consts';
 				background: var(--yupay-cream);
 				border-radius: 12px;
 				padding: 2em;
+				border-left: 4px solid var(--yupay-yellow);
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
+			}
+			.mv-card:hover {
+				transform: translateY(-3px);
+				box-shadow: 0 8px 24px rgba(0,0,0,0.07);
 			}
 			.mv-card h2 {
-				font-size: 1.3em;
+				font-size: 1.2em;
 				color: var(--yupay-black);
 				margin: 0 0 0.75em;
 				display: flex;
 				align-items: center;
 				gap: 0.5em;
+				font-weight: 700;
 			}
 			.mv-card p {
 				color: var(--yupay-charcoal);
@@ -99,21 +134,7 @@ import { url } from '../consts';
 			/* ---- Focus ---- */
 			.focus {
 				background: var(--yupay-cream);
-				padding: 4em 1.5em;
-			}
-			.focus .section-header {
-				text-align: center;
-				margin-bottom: 2.5em;
-			}
-			.focus .section-header h2 {
-				font-size: 1.8em;
-				color: var(--yupay-black);
-				margin: 0 0 0.4em;
-			}
-			.focus .section-header p {
-				color: var(--yupay-gray);
-				font-size: 1em;
-				margin: 0;
+				padding: 5.5em 1.5em 4.5em;
 			}
 			.focus-grid {
 				display: grid;
@@ -129,52 +150,60 @@ import { url } from '../consts';
 				display: flex;
 				gap: 1em;
 				align-items: flex-start;
+				border-left: 4px solid var(--yupay-yellow);
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
+			}
+			.focus-item:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 20px rgba(0,0,0,0.06);
 			}
 			.focus-item .icon {
-				font-size: 1.8em;
+				font-size: 1.7em;
 				flex-shrink: 0;
 			}
 			.focus-item h3 {
 				font-size: 1em;
 				color: var(--yupay-black);
 				margin: 0 0 0.3em;
+				font-weight: 700;
 			}
 			.focus-item p {
 				font-size: 0.88em;
 				color: var(--yupay-gray);
 				margin: 0;
-				line-height: 1.5;
+				line-height: 1.55;
 			}
 
 			/* ---- CTA ---- */
 			.about-cta {
 				background: var(--yupay-black);
-				padding: 4em 1.5em;
+				padding: 5em 1.5em;
 				text-align: center;
-				color: white;
 			}
 			.about-cta h2 {
 				color: white;
 				font-size: 1.8em;
-				margin: 0 0 0.5em;
+				margin: 0 0 0.4em;
 			}
 			.about-cta p {
-				color: #9ca3af;
-				margin: 0 0 1.75em;
+				color: rgba(255,255,255,0.5);
+				margin: 0 0 2em;
 			}
 			.btn-cta {
 				background: var(--yupay-yellow);
 				color: var(--yupay-black);
 				font-weight: 700;
-				padding: 0.75em 2em;
-				border-radius: 8px;
+				padding: 0.8em 2.25em;
+				border-radius: 9999px;
 				text-decoration: none;
 				font-size: 1em;
-				transition: background-color 0.2s ease;
+				transition: background-color 0.2s ease, box-shadow 0.2s ease;
+				box-shadow: 0 0 22px rgba(255,184,0,0.35);
 			}
 			.btn-cta:hover {
 				background: var(--yupay-yellow-dark);
 				color: var(--yupay-black);
+				box-shadow: 0 0 36px rgba(255,184,0,0.6);
 			}
 
 			@media (max-width: 720px) {
@@ -190,6 +219,7 @@ import { url } from '../consts';
 
 		<!-- Hero -->
 		<section class="about-hero">
+			<span class="section-label">Nuestra historia</span>
 			<h1>Finanzas personales al alcance de todos</h1>
 			<p>
 				Somos Yupay, una plataforma boliviana dedicada a hacer la educación financiera
@@ -218,6 +248,10 @@ import { url } from '../consts';
 
 		<!-- Misión y Visión -->
 		<section class="mission-vision">
+			<div class="section-header">
+				<span class="section-label">Lo que nos mueve</span>
+				<h2>Misión y Visión</h2>
+			</div>
 			<div class="mv-grid">
 				<div class="mv-card">
 					<h2><span>🎯</span> Nuestra Misión</h2>
@@ -241,6 +275,7 @@ import { url } from '../consts';
 		<!-- Enfoque -->
 		<section class="focus">
 			<div class="section-header">
+				<span class="section-label">Cómo trabajamos</span>
 				<h2>Nuestro enfoque</h2>
 				<p>Cuatro pilares que guían todo lo que creamos</p>
 			</div>

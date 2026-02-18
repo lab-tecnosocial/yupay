@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
+import Logo from '../assets/logo.png';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
@@ -18,102 +20,161 @@ const posts = (await getCollection('blog'))
 		<style>
 			/* ---- Hero ---- */
 			.hero {
-				background: linear-gradient(135deg, var(--yupay-cream) 0%, #fff3cc 50%, #ffe680 100%);
+				background: #0D0C0A;
 				position: relative;
 				overflow: hidden;
-				padding: 5em 1.5em 4em;
+				padding: 5em 1.5em 7em;
 				text-align: center;
 			}
+			/* Andean grid pattern */
 			.hero::before {
 				content: '';
 				position: absolute;
 				inset: 0;
-				background-image: radial-gradient(circle, rgba(255,184,0,0.12) 1px, transparent 1px);
-				background-size: 28px 28px;
+				background-image:
+					repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,184,0,0.04) 40px, rgba(255,184,0,0.04) 41px),
+					repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,184,0,0.04) 40px, rgba(255,184,0,0.04) 41px);
 				pointer-events: none;
+			}
+			/* Diagonal wedge transition to cream */
+			.hero::after {
+				content: '';
+				position: absolute;
+				bottom: -1px;
+				left: 0;
+				right: 0;
+				height: 90px;
+				background: var(--yupay-cream);
+				clip-path: polygon(0 100%, 100% 0, 100% 100%);
 			}
 			.hero-inner {
 				position: relative;
-				max-width: 740px;
+				z-index: 1;
+				max-width: 720px;
 				margin: 0 auto;
+			}
+			/* Glowing logo */
+			.hero-logo-wrap {
+				position: relative;
+				display: inline-block;
+				margin-bottom: 1.75em;
+			}
+			.hero-logo-halo {
+				position: absolute;
+				inset: -32px;
+				border-radius: 50%;
+				background: radial-gradient(circle, rgba(255,184,0,0.28) 0%, transparent 70%);
+				animation: haloPulse 3s ease-in-out infinite;
+			}
+			.hero-logo-wrap :global(img) {
+				position: relative;
+				z-index: 1;
+				height: 108px;
+				width: auto;
+				filter: drop-shadow(0 0 28px rgba(255,184,0,0.7)) drop-shadow(0 0 8px rgba(255,184,0,0.4));
+				animation: logoGlow 3s ease-in-out infinite alternate;
+			}
+			@keyframes haloPulse {
+				0%, 100% { transform: scale(0.88); opacity: 0.6; }
+				50%       { transform: scale(1.12); opacity: 1; }
+			}
+			@keyframes logoGlow {
+				from { filter: drop-shadow(0 0 18px rgba(255,184,0,0.5)) drop-shadow(0 0 6px rgba(255,184,0,0.3)); }
+				to   { filter: drop-shadow(0 0 38px rgba(255,184,0,0.85)) drop-shadow(0 0 14px rgba(255,184,0,0.55)); }
+			}
+			@keyframes fadeUp {
+				from { opacity: 0; transform: translateY(18px); }
+				to   { opacity: 1; transform: translateY(0); }
 			}
 			.hero-badge {
 				display: inline-block;
-				background: var(--yupay-yellow);
-				color: var(--yupay-black);
-				font-size: 0.8em;
+				background: rgba(255,184,0,0.12);
+				color: var(--yupay-yellow);
+				font-size: 0.73em;
 				font-weight: 700;
-				padding: 0.3em 1em;
+				padding: 0.35em 1.1em;
 				border-radius: 9999px;
-				margin-bottom: 1.25em;
-				letter-spacing: 0.05em;
+				margin-bottom: 1em;
+				letter-spacing: 0.1em;
 				text-transform: uppercase;
+				border: 1px solid rgba(255,184,0,0.3);
+				animation: fadeUp 0.6s ease both 0.1s;
 			}
 			.hero h1 {
-				font-size: clamp(2em, 5vw, 3.2em);
-				color: var(--yupay-black);
-				margin: 0 0 0.6em;
-				line-height: 1.15;
+				font-size: clamp(2em, 5vw, 3.4em);
+				color: white;
+				margin: 0 0 0.5em;
+				line-height: 1.12;
+				animation: fadeUp 0.6s ease both 0.2s;
 			}
 			.hero h1 span {
-				color: var(--yupay-amber);
+				color: var(--yupay-yellow);
 			}
 			.hero-sub {
-				font-size: 1.15em;
-				color: var(--yupay-charcoal);
-				max-width: 560px;
-				margin: 0 auto 2em;
-				line-height: 1.6;
+				font-size: 1.1em;
+				color: rgba(255,255,255,0.6);
+				max-width: 520px;
+				margin: 0 auto 2.25em;
+				line-height: 1.65;
+				animation: fadeUp 0.6s ease both 0.3s;
 			}
 			.hero-actions {
 				display: flex;
 				gap: 1em;
 				justify-content: center;
 				flex-wrap: wrap;
+				animation: fadeUp 0.6s ease both 0.4s;
 			}
 			.btn-primary {
 				background: var(--yupay-yellow);
 				color: var(--yupay-black);
 				font-weight: 700;
-				padding: 0.75em 2em;
-				border-radius: 8px;
+				padding: 0.8em 2.25em;
+				border-radius: 9999px;
 				text-decoration: none;
 				font-size: 1em;
-				transition: background-color 0.2s ease;
+				transition: background-color 0.2s ease, box-shadow 0.2s ease;
+				box-shadow: 0 0 22px rgba(255,184,0,0.45);
 			}
 			.btn-primary:hover {
 				background: var(--yupay-yellow-dark);
 				color: var(--yupay-black);
+				box-shadow: 0 0 36px rgba(255,184,0,0.7);
 			}
 			.btn-secondary {
 				background: transparent;
-				color: var(--yupay-black);
-				font-weight: 700;
-				padding: 0.75em 2em;
-				border-radius: 8px;
+				color: rgba(255,255,255,0.8);
+				font-weight: 600;
+				padding: 0.8em 2.25em;
+				border-radius: 9999px;
 				text-decoration: none;
 				font-size: 1em;
-				border: 2px solid var(--yupay-black);
-				transition: background-color 0.2s ease;
+				border: 1.5px solid rgba(255,255,255,0.3);
+				transition: border-color 0.2s ease, color 0.2s ease;
 			}
 			.btn-secondary:hover {
-				background: rgba(0,0,0,0.05);
-				color: var(--yupay-black);
+				border-color: rgba(255,255,255,0.7);
+				color: white;
 			}
 
-			/* ---- Features ---- */
-			.features {
-				background: white;
-				padding: 4em 1.5em;
+			/* ---- Shared section styles ---- */
+			.section-label {
+				display: block;
+				font-size: 0.75em;
+				font-weight: 700;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--yupay-amber);
+				margin-bottom: 0.6em;
 			}
 			.section-header {
 				text-align: center;
-				margin-bottom: 2.5em;
+				margin-bottom: 3em;
 			}
 			.section-header h2 {
 				font-size: 1.9em;
 				color: var(--yupay-black);
-				margin: 0 0 0.4em;
+				margin: 0 0 0.5em;
 			}
 			.section-header p {
 				color: var(--yupay-gray);
@@ -121,6 +182,12 @@ const posts = (await getCollection('blog'))
 				margin: 0;
 				max-width: 480px;
 				margin-inline: auto;
+			}
+
+			/* ---- Features ---- */
+			.features {
+				background: white;
+				padding: 5.5em 1.5em 4.5em;
 			}
 			.features-grid {
 				display: grid;
@@ -133,27 +200,33 @@ const posts = (await getCollection('blog'))
 				background: var(--yupay-cream);
 				border-radius: 12px;
 				padding: 2em 1.5em;
-				text-align: center;
+				border-left: 4px solid var(--yupay-yellow);
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
+			}
+			.feature-card:hover {
+				transform: translateY(-3px);
+				box-shadow: 0 8px 24px rgba(0,0,0,0.07);
 			}
 			.feature-icon {
-				font-size: 2.5em;
-				margin-bottom: 0.5em;
+				font-size: 2em;
+				margin-bottom: 0.6em;
 			}
 			.feature-card h3 {
-				font-size: 1.1em;
+				font-size: 1.05em;
 				color: var(--yupay-black);
 				margin: 0 0 0.5em;
+				font-weight: 700;
 			}
 			.feature-card p {
 				font-size: 0.9em;
 				color: var(--yupay-gray);
 				margin: 0;
-				line-height: 1.5;
+				line-height: 1.55;
 			}
 
 			/* ---- Latest posts ---- */
 			.latest-posts {
-				padding: 4em 1.5em;
+				padding: 5.5em 1.5em 4.5em;
 				background: var(--yupay-cream);
 			}
 			.posts-grid {
@@ -163,31 +236,41 @@ const posts = (await getCollection('blog'))
 				max-width: 1100px;
 				margin: 0 auto;
 			}
-			.all-posts-link {
+			.all-posts-wrap {
 				text-align: center;
-				margin-top: 2.5em;
+				margin-top: 2.75em;
 			}
-			.all-posts-link a {
+			.all-posts-wrap a {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4em;
 				font-weight: 700;
 				color: var(--yupay-amber);
 				text-decoration: none;
-				font-size: 1em;
+				font-size: 0.95em;
+				padding: 0.65em 1.75em;
+				border: 2px solid var(--yupay-amber);
+				border-radius: 9999px;
+				transition: background-color 0.2s ease, color 0.2s ease;
 			}
-			.all-posts-link a:hover {
-				color: var(--yupay-yellow-dark);
+			.all-posts-wrap a:hover {
+				background: var(--yupay-amber);
+				color: white;
 			}
 
 			/* ---- Coming soon ---- */
 			.coming-soon {
 				background: var(--yupay-black);
-				padding: 4em 1.5em;
-				color: white;
+				padding: 5.5em 1.5em 4.5em;
+			}
+			.coming-soon .section-label {
+				color: var(--yupay-yellow);
 			}
 			.coming-soon .section-header h2 {
 				color: white;
 			}
 			.coming-soon .section-header p {
-				color: #9ca3af;
+				color: rgba(255,255,255,0.45);
 			}
 			.coming-grid {
 				display: grid;
@@ -197,58 +280,81 @@ const posts = (await getCollection('blog'))
 				margin: 0 auto;
 			}
 			.coming-card {
-				background: #2d2d2d;
+				background: rgba(255,255,255,0.04);
+				border: 1px solid rgba(255,255,255,0.08);
 				border-radius: 12px;
 				padding: 2em 1.5em;
 				text-align: center;
+				transition: background-color 0.2s ease;
+			}
+			.coming-card:hover {
+				background: rgba(255,255,255,0.07);
 			}
 			.coming-badge {
 				display: inline-block;
-				background: #3d3d3d;
-				color: var(--yupay-honey);
-				font-size: 0.72em;
+				background: rgba(255,184,0,0.1);
+				color: var(--yupay-yellow);
+				font-size: 0.7em;
 				font-weight: 700;
-				padding: 0.25em 0.75em;
+				padding: 0.25em 0.85em;
 				border-radius: 9999px;
-				margin-bottom: 0.75em;
-				letter-spacing: 0.04em;
+				margin-bottom: 0.85em;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				border: 1px solid rgba(255,184,0,0.25);
 			}
 			.coming-icon {
-				font-size: 2.2em;
+				font-size: 2em;
 				margin-bottom: 0.5em;
 			}
 			.coming-card h3 {
 				color: white;
 				font-size: 1em;
 				margin: 0 0 0.4em;
+				font-weight: 700;
 			}
 			.coming-card p {
-				color: #9ca3af;
+				color: rgba(255,255,255,0.42);
 				font-size: 0.85em;
 				margin: 0;
-				line-height: 1.5;
+				line-height: 1.55;
 			}
 
 			/* ---- Newsletter ---- */
 			.newsletter {
-				background: linear-gradient(135deg, var(--yupay-yellow) 0%, var(--yupay-honey) 100%);
-				padding: 4em 1.5em;
+				background: #0D0C0A;
+				padding: 5em 1.5em;
 				text-align: center;
+				position: relative;
+				overflow: hidden;
+			}
+			.newsletter::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background-image:
+					repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,184,0,0.04) 40px, rgba(255,184,0,0.04) 41px),
+					repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,184,0,0.04) 40px, rgba(255,184,0,0.04) 41px);
+				pointer-events: none;
+			}
+			.newsletter-inner {
+				position: relative;
+				z-index: 1;
 			}
 			.newsletter h2 {
-				color: var(--yupay-black);
+				color: white;
 				font-size: 1.8em;
-				margin: 0 0 0.5em;
+				margin: 0 0 0.4em;
 			}
 			.newsletter p {
-				color: rgba(26,26,26,0.75);
-				margin: 0 0 1.75em;
+				color: rgba(255,255,255,0.5);
+				margin: 0 0 2em;
 				font-size: 1em;
 			}
 			.newsletter-form {
 				display: flex;
-				gap: 0.75em;
-				max-width: 460px;
+				gap: 0.6em;
+				max-width: 440px;
 				margin: 0 auto;
 				flex-wrap: wrap;
 				justify-content: center;
@@ -256,30 +362,39 @@ const posts = (await getCollection('blog'))
 			.newsletter-form input[type="email"] {
 				flex: 1;
 				min-width: 220px;
-				padding: 0.7em 1em;
-				border-radius: 8px;
-				border: 2px solid transparent;
+				padding: 0.75em 1.1em;
+				border-radius: 9999px;
+				border: 1.5px solid rgba(255,255,255,0.15);
 				font-size: 1em;
 				font-family: inherit;
 				outline: none;
+				background: rgba(255,255,255,0.07);
+				color: white;
+			}
+			.newsletter-form input[type="email"]::placeholder {
+				color: rgba(255,255,255,0.35);
 			}
 			.newsletter-form input[type="email"]:focus {
-				border-color: var(--yupay-amber);
+				border-color: var(--yupay-yellow);
+				background: rgba(255,255,255,0.1);
 			}
 			.newsletter-form button {
-				background: var(--yupay-black);
-				color: white;
+				background: var(--yupay-yellow);
+				color: var(--yupay-black);
 				font-weight: 700;
-				padding: 0.7em 1.5em;
-				border-radius: 8px;
+				padding: 0.75em 1.75em;
+				border-radius: 9999px;
 				border: none;
 				font-size: 1em;
 				font-family: inherit;
 				cursor: pointer;
-				transition: background-color 0.2s ease;
+				transition: background-color 0.2s ease, box-shadow 0.2s ease;
+				white-space: nowrap;
+				box-shadow: 0 0 18px rgba(255,184,0,0.35);
 			}
 			.newsletter-form button:hover {
-				background: var(--yupay-charcoal);
+				background: var(--yupay-yellow-dark);
+				box-shadow: 0 0 28px rgba(255,184,0,0.55);
 			}
 
 			@media (max-width: 720px) {
@@ -288,7 +403,8 @@ const posts = (await getCollection('blog'))
 				.coming-grid {
 					grid-template-columns: 1fr;
 				}
-				.hero { padding: 3em 1.25em 2.5em; }
+				.hero { padding: 4em 1.25em 6em; }
+				.hero-logo-wrap :global(img) { height: 80px; }
 			}
 		</style>
 	</head>
@@ -298,6 +414,10 @@ const posts = (await getCollection('blog'))
 		<!-- Hero -->
 		<section class="hero">
 			<div class="hero-inner">
+				<div class="hero-logo-wrap">
+					<div class="hero-logo-halo"></div>
+					<Image src={Logo} alt="Yupay" height={108} />
+				</div>
 				<span class="hero-badge">Educación Financiera</span>
 				<h1>Toma el control de tu <span>dinero en Bolivia</span></h1>
 				<p class="hero-sub">
@@ -314,7 +434,8 @@ const posts = (await getCollection('blog'))
 		<!-- ¿Por qué Yupay? -->
 		<section class="features">
 			<div class="section-header">
-				<h2>¿Por qué Yupay?</h2>
+				<span class="section-label">¿Por qué elegirnos?</span>
+				<h2>Finanzas bolivianas, explicadas bien</h2>
 				<p>Contenido pensado desde y para Bolivia, sin jerga financiera innecesaria.</p>
 			</div>
 			<div class="features-grid">
@@ -339,13 +460,14 @@ const posts = (await getCollection('blog'))
 		<!-- Últimos artículos -->
 		<section class="latest-posts">
 			<div class="section-header">
+				<span class="section-label">Del blog</span>
 				<h2>Últimos artículos</h2>
-				<p>Aprende algo nuevo sobre finanzas personales esta semana.</p>
+				<p>Contenido fresco sobre finanzas personales en Bolivia.</p>
 			</div>
 			<div class="posts-grid">
 				{posts.map((post) => <PostCard post={post} />)}
 			</div>
-			<div class="all-posts-link">
+			<div class="all-posts-wrap">
 				<a href={url('/blog')}>Ver todos los artículos →</a>
 			</div>
 		</section>
@@ -353,8 +475,9 @@ const posts = (await getCollection('blog'))
 		<!-- Próximamente -->
 		<section class="coming-soon">
 			<div class="section-header">
-				<h2>Próximamente</h2>
-				<p>Estamos construyendo herramientas para ayudarte aún más.</p>
+				<span class="section-label">Próximamente</span>
+				<h2>Herramientas en camino</h2>
+				<p>Estamos construyendo más formas de ayudarte.</p>
 			</div>
 			<div class="coming-grid">
 				<div class="coming-card">
@@ -380,12 +503,14 @@ const posts = (await getCollection('blog'))
 
 		<!-- Newsletter -->
 		<section class="newsletter">
-			<h2>Recibe contenido nuevo cada semana</h2>
-			<p>Sin spam. Solo artículos prácticos sobre finanzas personales en Bolivia.</p>
-			<form class="newsletter-form" onsubmit="return false;">
-				<input type="email" placeholder="tu@correo.com" aria-label="Tu correo electrónico" />
-				<button type="submit">Suscribirme</button>
-			</form>
+			<div class="newsletter-inner">
+				<h2>Recibe contenido nuevo cada semana</h2>
+				<p>Sin spam. Solo artículos prácticos sobre finanzas personales en Bolivia.</p>
+				<form class="newsletter-form" onsubmit="return false;">
+					<input type="email" placeholder="tu@correo.com" aria-label="Tu correo electrónico" />
+					<button type="submit">Suscribirme</button>
+				</form>
+			</div>
 		</section>
 
 		<Footer />

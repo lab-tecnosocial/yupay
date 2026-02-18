@@ -6,6 +6,6 @@ export const SITE_DESCRIPTION = 'Educación financiera para Bolivia. Aprende a a
 
 /** Prefija cualquier ruta interna con la base del sitio. Uso: href={url('/blog')} */
 export function url(path: string): string {
-	const base = import.meta.env.BASE_URL; // '/' en dev, '/yupay/' en producción
-	return base + path.replace(/^\//, '');
+	const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // quita trailing slash si existe
+	return base + '/' + path.replace(/^\//, '');
 }
