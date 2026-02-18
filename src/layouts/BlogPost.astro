@@ -11,46 +11,83 @@ type Props = CollectionEntry<'blog'>['data'];
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="es">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} description={description} image={heroImage} />
 		<style>
 			main {
 				width: calc(100% - 2em);
 				max-width: 100%;
 				margin: 0;
+				padding: 0;
 			}
 			.hero-image {
 				width: 100%;
+				position: relative;
+				max-height: 480px;
+				overflow: hidden;
 			}
 			.hero-image img {
 				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
+				width: 100%;
+				max-height: 480px;
+				object-fit: cover;
+				border-radius: 0;
+				box-shadow: none;
+			}
+			.hero-image .overlay {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(to bottom, transparent 40%, rgba(26,26,26,0.55) 100%);
+			}
+			.breadcrumb {
+				max-width: 760px;
+				margin: 1.5em auto 0;
+				padding: 0 1em;
+			}
+			.breadcrumb a {
+				font-size: 0.9em;
+				color: var(--yupay-amber);
+				text-decoration: none;
+				font-weight: 600;
+			}
+			.breadcrumb a:hover {
+				color: var(--yupay-yellow-dark);
 			}
 			.prose {
 				width: 720px;
 				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
+				margin: 0 auto;
+				padding: 1em 1em 3em;
+				color: var(--yupay-charcoal);
 			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
+			.post-meta {
+				margin-bottom: 1.5em;
+				padding: 1.5em 0;
+				border-bottom: 2px solid #f3f4f6;
 			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
+			.post-meta .date {
+				font-size: 0.9em;
+				color: var(--yupay-amber);
+				font-weight: 600;
 				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
+			}
+			.post-meta h1 {
+				margin: 0 0 0.5em;
+				font-size: 2.2em;
+				line-height: 1.15;
+				color: var(--yupay-black);
+			}
+			.post-meta .description {
+				font-size: 1.05em;
+				color: var(--yupay-gray);
+				margin: 0;
 			}
 			.last-updated-on {
 				font-style: italic;
+				font-size: 0.85em;
+				color: var(--yupay-gray);
+				margin-top: 0.25em;
 			}
 		</style>
 	</head>
@@ -58,24 +95,28 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 	<body>
 		<Header />
 		<main>
+			<div class="breadcrumb">
+				<a href="/blog">← Volver al blog</a>
+			</div>
 			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
+				{heroImage && (
+					<div class="hero-image">
+						<Image width={1020} height={480} src={heroImage} alt={title} />
+						<div class="overlay"></div>
+					</div>
+				)}
 				<div class="prose">
-					<div class="title">
-						<div class="date">
+					<div class="post-meta">
+						<p class="date">
 							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
+							{updatedDate && (
+								<span class="last-updated-on">
+									· Actualizado: <FormattedDate date={updatedDate} />
+								</span>
+							)}
+						</p>
 						<h1>{title}</h1>
-						<hr />
+						{description && <p class="description">{description}</p>}
 					</div>
 					<slot />
 				</div>

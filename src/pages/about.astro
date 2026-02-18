@@ -1,63 +1,287 @@
 ---
+import { Image } from 'astro:assets';
 import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<!doctype html>
+<html lang="es">
+	<head>
+		<BaseHead
+			title="Nosotros — Yupay"
+			description="Conoce Yupay, la plataforma boliviana de educación financiera. Nuestra misión es hacer las finanzas personales accesibles para todos."
+		/>
+		<style>
+			/* ---- Hero ---- */
+			.about-hero {
+				background: var(--yupay-cream);
+				padding: 4em 1.5em 3em;
+				text-align: center;
+			}
+			.about-hero h1 {
+				font-size: clamp(1.8em, 4vw, 2.8em);
+				color: var(--yupay-black);
+				margin: 0 0 0.5em;
+			}
+			.about-hero p {
+				font-size: 1.1em;
+				color: var(--yupay-gray);
+				max-width: 540px;
+				margin: 0 auto;
+				line-height: 1.6;
+			}
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+			/* ---- Image ---- */
+			.about-image {
+				width: 100%;
+				max-height: 400px;
+				overflow: hidden;
+			}
+			.about-image img {
+				width: 100%;
+				max-height: 400px;
+				object-fit: cover;
+				border-radius: 0;
+			}
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+			/* ---- Name callout ---- */
+			.name-callout {
+				background: var(--yupay-yellow);
+				padding: 2.5em 1.5em;
+				text-align: center;
+			}
+			.name-callout p {
+				max-width: 680px;
+				margin: 0 auto;
+				font-size: 1.15em;
+				color: var(--yupay-black);
+				line-height: 1.6;
+			}
+			.name-callout strong {
+				font-size: 1.1em;
+			}
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+			/* ---- Mission / Vision ---- */
+			.mission-vision {
+				background: white;
+				padding: 4em 1.5em;
+			}
+			.mv-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 2em;
+				max-width: 900px;
+				margin: 0 auto;
+			}
+			.mv-card {
+				background: var(--yupay-cream);
+				border-radius: 12px;
+				padding: 2em;
+			}
+			.mv-card h2 {
+				font-size: 1.3em;
+				color: var(--yupay-black);
+				margin: 0 0 0.75em;
+				display: flex;
+				align-items: center;
+				gap: 0.5em;
+			}
+			.mv-card p {
+				color: var(--yupay-charcoal);
+				font-size: 0.95em;
+				line-height: 1.6;
+				margin: 0;
+			}
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+			/* ---- Focus ---- */
+			.focus {
+				background: var(--yupay-cream);
+				padding: 4em 1.5em;
+			}
+			.focus .section-header {
+				text-align: center;
+				margin-bottom: 2.5em;
+			}
+			.focus .section-header h2 {
+				font-size: 1.8em;
+				color: var(--yupay-black);
+				margin: 0 0 0.4em;
+			}
+			.focus .section-header p {
+				color: var(--yupay-gray);
+				font-size: 1em;
+				margin: 0;
+			}
+			.focus-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 1.5em;
+				max-width: 860px;
+				margin: 0 auto;
+			}
+			.focus-item {
+				background: white;
+				border-radius: 12px;
+				padding: 1.75em;
+				display: flex;
+				gap: 1em;
+				align-items: flex-start;
+			}
+			.focus-item .icon {
+				font-size: 1.8em;
+				flex-shrink: 0;
+			}
+			.focus-item h3 {
+				font-size: 1em;
+				color: var(--yupay-black);
+				margin: 0 0 0.3em;
+			}
+			.focus-item p {
+				font-size: 0.88em;
+				color: var(--yupay-gray);
+				margin: 0;
+				line-height: 1.5;
+			}
+
+			/* ---- CTA ---- */
+			.about-cta {
+				background: var(--yupay-black);
+				padding: 4em 1.5em;
+				text-align: center;
+				color: white;
+			}
+			.about-cta h2 {
+				color: white;
+				font-size: 1.8em;
+				margin: 0 0 0.5em;
+			}
+			.about-cta p {
+				color: #9ca3af;
+				margin: 0 0 1.75em;
+			}
+			.btn-cta {
+				background: var(--yupay-yellow);
+				color: var(--yupay-black);
+				font-weight: 700;
+				padding: 0.75em 2em;
+				border-radius: 8px;
+				text-decoration: none;
+				font-size: 1em;
+				transition: background-color 0.2s ease;
+			}
+			.btn-cta:hover {
+				background: var(--yupay-yellow-dark);
+				color: var(--yupay-black);
+			}
+
+			@media (max-width: 720px) {
+				.mv-grid,
+				.focus-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+
+		<!-- Hero -->
+		<section class="about-hero">
+			<h1>Finanzas personales al alcance de todos</h1>
+			<p>
+				Somos Yupay, una plataforma boliviana dedicada a hacer la educación financiera
+				accesible, práctica y relevante para cada boliviano.
+			</p>
+		</section>
+
+		<!-- Imagen -->
+		<div class="about-image">
+			<Image
+				src={AboutHeroImage}
+				width={1200}
+				height={400}
+				alt="El equipo de Yupay"
+			/>
+		</div>
+
+		<!-- Nombre quechua -->
+		<div class="name-callout">
+			<p>
+				<strong>Yupay</strong> (en quechua: <em>"contar"</em>) es más que un nombre.
+				Representa nuestra convicción de que cada boliviana y boliviano merece saber
+				contar su propio dinero, entender sus finanzas y construir un futuro mejor.
+			</p>
+		</div>
+
+		<!-- Misión y Visión -->
+		<section class="mission-vision">
+			<div class="mv-grid">
+				<div class="mv-card">
+					<h2><span>🎯</span> Nuestra Misión</h2>
+					<p>
+						Democratizar la educación financiera en Bolivia mediante contenido claro,
+						honesto y adaptado a la realidad local: desde el Fondo de Pensiones hasta
+						los mercados de valores, pasando por el ahorro cotidiano.
+					</p>
+				</div>
+				<div class="mv-card">
+					<h2><span>🔭</span> Nuestra Visión</h2>
+					<p>
+						Un país donde cada persona —independientemente de su nivel de ingresos
+						o educación formal— pueda tomar decisiones financieras informadas y
+						construir un patrimonio sostenible.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Enfoque -->
+		<section class="focus">
+			<div class="section-header">
+				<h2>Nuestro enfoque</h2>
+				<p>Cuatro pilares que guían todo lo que creamos</p>
+			</div>
+			<div class="focus-grid">
+				<div class="focus-item">
+					<span class="icon">🇧🇴</span>
+					<div>
+						<h3>Contexto boliviano</h3>
+						<p>UFV, AFP, DPF, Renta Dignidad y Bolsa Boliviana de Valores. No hablamos de mercados que no son los tuyos.</p>
+					</div>
+				</div>
+				<div class="focus-item">
+					<span class="icon">📖</span>
+					<div>
+						<h3>Lenguaje accesible</h3>
+						<p>Traducimos el lenguaje financiero a términos que cualquier persona pueda entender y aplicar.</p>
+					</div>
+				</div>
+				<div class="focus-item">
+					<span class="icon">⚡</span>
+					<div>
+						<h3>Acción inmediata</h3>
+						<p>Cada artículo incluye pasos concretos. El conocimiento vale cuando se convierte en acción.</p>
+					</div>
+				</div>
+				<div class="focus-item">
+					<span class="icon">🤝</span>
+					<div>
+						<h3>Sin conflicto de interés</h3>
+						<p>No vendemos productos financieros. Nuestra única motivación es que tomes mejores decisiones.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA -->
+		<section class="about-cta">
+			<h2>¿Listo para aprender?</h2>
+			<p>Explora nuestros artículos y empieza a construir tu futuro financiero hoy.</p>
+			<a href="/blog" class="btn-cta">Ir al blog →</a>
+		</section>
+
+		<Footer />
+	</body>
+</html>
