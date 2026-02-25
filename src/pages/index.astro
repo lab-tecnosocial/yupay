@@ -26,14 +26,12 @@ const posts = (await getCollection('blog'))
 				padding: 5em 1.5em 7em;
 				text-align: center;
 			}
-			/* Andean grid pattern */
+			/* Honeycomb pattern */
 			.hero::before {
 				content: '';
 				position: absolute;
 				inset: 0;
-				background-image:
-					repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,184,0,0.04) 40px, rgba(255,184,0,0.04) 41px),
-					repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,184,0,0.04) 40px, rgba(255,184,0,0.04) 41px);
+				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34zm0 34L0 84V50l28 16 28-16v34z' fill='none' stroke='rgba(255%2C184%2C0%2C0.3)' stroke-width='2.5'/%3E%3C/svg%3E");
 				pointer-events: none;
 			}
 			/* Diagonal wedge transition to cream */
@@ -156,6 +154,25 @@ const posts = (await getCollection('blog'))
 				border-color: rgba(255,255,255,0.7);
 				color: white;
 			}
+			.btn-google-play {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5em;
+				background: rgba(255,255,255,0.1);
+				color: rgba(255,255,255,0.85);
+				font-weight: 600;
+				padding: 0.8em 1.75em;
+				border-radius: 9999px;
+				text-decoration: none;
+				font-size: 0.95em;
+				border: 1.5px solid rgba(255,255,255,0.25);
+				transition: background-color 0.2s ease, border-color 0.2s ease;
+			}
+			.btn-google-play:hover {
+				background: rgba(255,255,255,0.18);
+				border-color: rgba(255,255,255,0.5);
+				color: white;
+			}
 
 			/* ---- Shared section styles ---- */
 			.section-label {
@@ -182,46 +199,6 @@ const posts = (await getCollection('blog'))
 				margin: 0;
 				max-width: 480px;
 				margin-inline: auto;
-			}
-
-			/* ---- Features ---- */
-			.features {
-				background: white;
-				padding: 5.5em 1.5em 4.5em;
-			}
-			.features-grid {
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 1.5em;
-				max-width: 960px;
-				margin: 0 auto;
-			}
-			.feature-card {
-				background: var(--yupay-cream);
-				border-radius: 12px;
-				padding: 2em 1.5em;
-				border-left: 4px solid var(--yupay-yellow);
-				transition: transform 0.2s ease, box-shadow 0.2s ease;
-			}
-			.feature-card:hover {
-				transform: translateY(-3px);
-				box-shadow: 0 8px 24px rgba(0,0,0,0.07);
-			}
-			.feature-icon {
-				font-size: 2em;
-				margin-bottom: 0.6em;
-			}
-			.feature-card h3 {
-				font-size: 1.05em;
-				color: var(--yupay-black);
-				margin: 0 0 0.5em;
-				font-weight: 700;
-			}
-			.feature-card p {
-				font-size: 0.9em;
-				color: var(--yupay-gray);
-				margin: 0;
-				line-height: 1.55;
 			}
 
 			/* ---- Latest posts ---- */
@@ -332,9 +309,7 @@ const posts = (await getCollection('blog'))
 				content: '';
 				position: absolute;
 				inset: 0;
-				background-image:
-					repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,184,0,0.04) 40px, rgba(255,184,0,0.04) 41px),
-					repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,184,0,0.04) 40px, rgba(255,184,0,0.04) 41px);
+				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34zm0 34L0 84V50l28 16 28-16v34z' fill='none' stroke='rgba(255%2C184%2C0%2C0.3)' stroke-width='2.5'/%3E%3C/svg%3E");
 				pointer-events: none;
 			}
 			.newsletter-inner {
@@ -398,7 +373,6 @@ const posts = (await getCollection('blog'))
 			}
 
 			@media (max-width: 720px) {
-				.features-grid,
 				.posts-grid,
 				.coming-grid {
 					grid-template-columns: 1fr;
@@ -421,38 +395,15 @@ const posts = (await getCollection('blog'))
 				<span class="hero-badge">Educación Financiera</span>
 				<h1>Toma el control de tu <span>dinero en Bolivia</span></h1>
 				<p class="hero-sub">
-					Aprende a ahorrar, invertir y planificar tu futuro con contenido claro,
-					práctico y adaptado a la realidad boliviana.
+					Educación financiera para Bolivia
 				</p>
 				<div class="hero-actions">
 					<a href={url('/blog')} class="btn-primary">Explorar artículos</a>
 					<a href={url('/about')} class="btn-secondary">Conoce Yupay</a>
-				</div>
-			</div>
-		</section>
-
-		<!-- ¿Por qué Yupay? -->
-		<section class="features">
-			<div class="section-header">
-				<span class="section-label">¿Por qué elegirnos?</span>
-				<h2>Finanzas bolivianas, explicadas bien</h2>
-				<p>Contenido pensado desde y para Bolivia, sin jerga financiera innecesaria.</p>
-			</div>
-			<div class="features-grid">
-				<div class="feature-card">
-					<div class="feature-icon">🇧🇴</div>
-					<h3>Contexto boliviano</h3>
-					<p>Hablamos de UFV, AFP, DPF y la Bolsa Boliviana de Valores, no de mercados extranjeros.</p>
-				</div>
-				<div class="feature-card">
-					<div class="feature-icon">📖</div>
-					<h3>Lenguaje claro</h3>
-					<p>Sin tecnicismos innecesarios. Conceptos complejos explicados de forma simple y directa.</p>
-				</div>
-				<div class="feature-card">
-					<div class="feature-icon">🎯</div>
-					<h3>Acción práctica</h3>
-					<p>Cada artículo termina con pasos concretos que puedes implementar hoy mismo.</p>
+					<a href="https://play.google.com/store" class="btn-google-play" target="_blank" rel="noopener noreferrer">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.98.2l11.46-11.47L12 9.38zm16.3-10.69c-.4-.23-3.67-2.1-5.02-2.87l-3.19 3.19 3.2 3.2c1.35-.78 4.62-2.64 5.01-2.87.57-.33.57-1.32 0-1.65zM3.55.24A1.16 1.16 0 0 0 2.5 1.36v21.28c0 .54.29 1 .68 1.12L15.62 12z"/></svg>
+						Google Play
+					</a>
 				</div>
 			</div>
 		</section>
@@ -462,7 +413,7 @@ const posts = (await getCollection('blog'))
 			<div class="section-header">
 				<span class="section-label">Del blog</span>
 				<h2>Últimos artículos</h2>
-				<p>Contenido fresco sobre finanzas personales en Bolivia.</p>
+				<p>Contenido práctico sobre finanzas personales en Bolivia.</p>
 			</div>
 			<div class="posts-grid">
 				{posts.map((post) => <PostCard post={post} />)}
@@ -484,19 +435,19 @@ const posts = (await getCollection('blog'))
 					<div class="coming-badge">En desarrollo</div>
 					<div class="coming-icon">📱</div>
 					<h3>App Yupay</h3>
-					<p>Lleva tu educación financiera en el bolsillo. Control de gastos y metas de ahorro.</p>
+					<p>Educación financiera, control de gastos y metas de ahorro.</p>
 				</div>
 				<div class="coming-card">
 					<div class="coming-badge">En desarrollo</div>
 					<div class="coming-icon">🧮</div>
 					<h3>Calculadoras</h3>
-					<p>Simula el crecimiento de un DPF, calcula tu jubilación o proyecta tus ahorros.</p>
+					<p>Simula el pago de anualidades, calcula tu jubilación o proyecta tus ahorros.</p>
 				</div>
 				<div class="coming-card">
 					<div class="coming-badge">En desarrollo</div>
 					<div class="coming-icon">📊</div>
 					<h3>Planificador</h3>
-					<p>Crea un presupuesto mensual en minutos con categorías adaptadas a Bolivia.</p>
+					<p>Crea un presupuesto mensual en minutos adaptado para Bolivia.</p>
 				</div>
 			</div>
 		</section>
@@ -504,8 +455,7 @@ const posts = (await getCollection('blog'))
 		<!-- Newsletter -->
 		<section class="newsletter">
 			<div class="newsletter-inner">
-				<h2>Recibe contenido nuevo cada semana</h2>
-				<p>Sin spam. Solo artículos prácticos sobre finanzas personales en Bolivia.</p>
+				<h2>Recibe cada actualización de nuestro contenido</h2>
 				<form class="newsletter-form" onsubmit="return false;">
 					<input type="email" placeholder="tu@correo.com" aria-label="Tu correo electrónico" />
 					<button type="submit">Suscribirme</button>

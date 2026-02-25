@@ -1,0 +1,202 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+const categorias = [
+	{ icon: '🏦', title: 'Instituciones reguladas por ASFI', desc: 'Bancos, cooperativas, mutuales y fondos financieros privados clasificados por categoría.' },
+	{ icon: '📈', title: 'Tasas de interés activas', desc: 'Tasas promedio de créditos de consumo, vivienda y productivos en el sistema financiero boliviano.' },
+	{ icon: '💰', title: 'Tasas de interés pasivas', desc: 'Rendimientos de depósitos a plazo fijo y cajas de ahorro en bolivianos y dólares.' },
+	{ icon: '🛒', title: 'Canasta básica familiar', desc: 'Proyección de precios de los principales productos de la canasta básica en Bolivia.' },
+	{ icon: '📊', title: 'Distribución del gasto familiar', desc: 'Porcentaje de ingresos que los hogares bolivianos destinan a alimentación, vivienda, salud y educación.' },
+	{ icon: '⏳', title: 'Tiempo de desempleo', desc: 'Indicadores sobre duración del desempleo y participación laboral en Bolivia.' },
+];
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<BaseHead
+			title="Estadísticas — Yupay"
+			description="Estadísticas financieras de Bolivia: tasas de interés, instituciones reguladas por ASFI, canasta básica y más."
+		/>
+		<style>
+			.section-label {
+				display: block;
+				font-size: 0.75em;
+				font-weight: 700;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--yupay-amber);
+				margin-bottom: 0.6em;
+			}
+
+			/* ---- Hero ---- */
+			.stats-hero {
+				background: var(--yupay-black);
+				padding: 4.5em 1.5em 3.5em;
+				text-align: center;
+				position: relative;
+				overflow: hidden;
+			}
+			.stats-hero::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34zm0 34L0 84V50l28 16 28-16v34z' fill='none' stroke='rgba(255%2C184%2C0%2C0.3)' stroke-width='2.5'/%3E%3C/svg%3E");
+				pointer-events: none;
+			}
+			.stats-hero-inner {
+				position: relative;
+				z-index: 1;
+				max-width: 660px;
+				margin: 0 auto;
+			}
+			.stats-hero h1 {
+				font-size: clamp(1.8em, 4vw, 2.8em);
+				color: white;
+				margin: 0 0 0.5em;
+			}
+			.stats-hero h1 span { color: var(--yupay-yellow); }
+			.stats-hero p {
+				font-size: 1.05em;
+				color: rgba(255,255,255,0.6);
+				margin: 0;
+				line-height: 1.6;
+			}
+
+			/* ---- Coming soon banner ---- */
+			.coming-banner {
+				background: rgba(255,184,0,0.1);
+				border: 1.5px solid rgba(255,184,0,0.35);
+				border-radius: 12px;
+				padding: 1.1em 1.5em;
+				max-width: 680px;
+				margin: 0 auto 0;
+				display: flex;
+				align-items: center;
+				gap: 0.75em;
+				font-size: 0.95em;
+				color: var(--yupay-black);
+			}
+			.coming-banner strong { color: var(--yupay-amber); }
+			.banner-section {
+				background: var(--yupay-cream);
+				padding: 2.5em 1.5em;
+			}
+
+			/* ---- Categories ---- */
+			.categories {
+				background: white;
+				padding: 5em 1.5em 4.5em;
+			}
+			.categories-header {
+				text-align: center;
+				margin-bottom: 2.5em;
+			}
+			.categories-header h2 {
+				font-size: 1.9em;
+				color: var(--yupay-black);
+				margin: 0 0 0.4em;
+			}
+			.categories-header p {
+				color: var(--yupay-gray);
+				font-size: 1em;
+				margin: 0;
+			}
+			.categories-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 1.25em;
+				max-width: 1000px;
+				margin: 0 auto;
+			}
+			.category-card {
+				background: var(--yupay-cream);
+				border-radius: 12px;
+				padding: 1.75em 1.5em;
+				border-left: 4px solid var(--yupay-yellow);
+				position: relative;
+				overflow: hidden;
+			}
+			.category-card::after {
+				content: 'Próximamente';
+				position: absolute;
+				top: 0.75em;
+				right: 0.75em;
+				background: rgba(255,184,0,0.12);
+				color: var(--yupay-amber);
+				font-size: 0.68em;
+				font-weight: 700;
+				padding: 0.2em 0.7em;
+				border-radius: 9999px;
+				letter-spacing: 0.05em;
+				text-transform: uppercase;
+				border: 1px solid rgba(255,184,0,0.3);
+			}
+			.category-icon {
+				font-size: 2em;
+				margin-bottom: 0.5em;
+			}
+			.category-card h3 {
+				font-size: 1em;
+				font-weight: 700;
+				color: var(--yupay-black);
+				margin: 0 0 0.4em;
+			}
+			.category-card p {
+				font-size: 0.88em;
+				color: var(--yupay-gray);
+				margin: 0;
+				line-height: 1.55;
+			}
+
+			@media (max-width: 720px) {
+				.categories-grid { grid-template-columns: 1fr; }
+			}
+			@media (min-width: 721px) and (max-width: 960px) {
+				.categories-grid { grid-template-columns: repeat(2, 1fr); }
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+
+		<!-- Hero -->
+		<section class="stats-hero">
+			<div class="stats-hero-inner">
+				<span class="section-label">Datos de Bolivia</span>
+				<h1>Estadísticas <span>financieras</span></h1>
+				<p>Información cuantitativa sobre el sistema financiero boliviano para tomar mejores decisiones.</p>
+			</div>
+		</section>
+
+		<!-- Banner próximamente -->
+		<div class="banner-section">
+			<div class="coming-banner">
+				<span style="font-size:1.4em">🚧</span>
+				<p><strong>En desarrollo.</strong> Estamos preparando gráficos interactivos con datos actualizados del sistema financiero boliviano. Pronto disponible.</p>
+			</div>
+		</div>
+
+		<!-- Categorías de estadísticas -->
+		<section class="categories">
+			<div class="categories-header">
+				<span class="section-label">Lo que viene</span>
+				<h2>Categorías de datos</h2>
+				<p>Gráficos e indicadores que incorporaremos próximamente</p>
+			</div>
+			<div class="categories-grid">
+				{categorias.map((cat) => (
+					<div class="category-card">
+						<div class="category-icon">{cat.icon}</div>
+						<h3>{cat.title}</h3>
+						<p>{cat.desc}</p>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<Footer />
+	</body>
+</html>
